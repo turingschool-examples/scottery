@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="col-sm-12">
+    <h1>Posts</h1>
+    <hr>
+    <% if @posts.empty? %>
+      <h3>There are no posts yet. Create a new post <%= link_to "here", new_post_path %>. </h3>
+    <% else %>
+      <% @posts.each do |post| %>
+        <h3> <%= link_to post.title, post_path(post.id) %> </h3>
+      <% end %>
+    <% end %>
+  </div>
+</div>
