@@ -5,3 +5,22 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+class Seed
+  def initialize
+    generate_articles
+  end
+
+  def generate_articles
+    50.times do |i|
+      post = Post.create!(
+        title: Faker::Lorem.sentence(5),
+        body:  Faker::Lorem.paragraphs(5)
+        )
+
+      puts "Article #{i}: #{post.title} added!"
+    end
+  end
+end
+
+Seed.new
