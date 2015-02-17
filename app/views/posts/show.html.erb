@@ -5,25 +5,48 @@
     <hr>
     <p><%= simple_format(@post.body) %></p>
     <hr>
-    <% unless @post.comments.empty? %>
-      <h4>Comments</h4>
-      <% @post.comments.each do |comment| %>
-        <h5><%= comment.author %></h5>
-        <p><%= comment.body %></p>
+    <button class="btn btn-default btn-sm" id="show-comments">Show Comments</button>
+    <div class="hide", id="comments">
+      <% unless @post.comments.empty? %>
+        <h4>Comments</h4>
+        <% @post.comments.each do |comment| %>
+          <h5><%= comment.author %></h5>
+          <p><%= comment.body %></p>
+        <% end %>
+      <hr>
       <% end %>
-    <hr>
-    <% end %>
-    <%= form_for Comment.new, url: comments_path(post_id: @post.id) do |f| %>
-      <div class="form-group">
-        <%= f.label :author %>
-        <%= f.text_field :author, class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :body %>
-        <%= f.text_area :body, class: "form-control" %>
-      </div>
-      <%= f.submit "Create Comment", class: "form-control btn btn-default" %>
-    <% end %>
+      <%= form_for Comment.new, url: comments_path(post_id: @post.id) do |f| %>
+        <div class="form-group">
+          <%= f.label :author %>
+          <%= f.text_field :author, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :body %>
+          <%= f.text_area :body, class: "form-control" %>
+        </div>
+        <%= f.submit "Create Comment", class: "form-control btn btn-default" %>
+      <% end %>
+    </div>
   </div>
   <div class="col-sm-3"></div>
 </div>
+
+<script charset="utf-8">
+  $(document).ready(function(){
+    toggleComments("#show-comments", "#comments")
+
+    function toggleComments(button, target) {
+      $(button).on("click", function(){
+        var $showCommentsButton = $(this)
+
+        if ($showCommentsButton.text() === "Show Comments") {
+          $showCommentsButton.text("Hide Comments")
+        } else {
+          $showCommentsButton.text("Show Comments")
+        }
+
+        $(target).toggleClass("hide")
+      })
+    }
+  })
+</script>
