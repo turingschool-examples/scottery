@@ -7,15 +7,15 @@
     <hr>
     <%= button_to "Show Comments", post_path(@post.id), method: :get, remote: true, class: "btn btn-sm btn-default", id: "show-comments" %>
     <div class="hide", id="comments">
-      <% unless @post.comments.empty? %>
-        <h4>Comments</h4>
-        <% @post.comments.each do |comment| %>
-          <h5><%= comment.author %></h5>
-          <p><%= comment.body %></p>
-        <% end %>
-      <hr>
+      <h4>Comments</h4>
+      <div id="comment-items">
+      <% @post.comments.reverse.each do |comment| %>
+        <h5><%= comment.author %></h5>
+        <p><%= comment.body %></p>
       <% end %>
-      <%= form_for Comment.new, url: comments_path(post_id: @post.id) do |f| %>
+      </div>
+    <hr>
+      <%= form_for Comment.new, url: comments_path(post_id: @post.id), remote: true do |f| %>
         <div class="form-group">
           <%= f.label :author %>
           <%= f.text_field :author, class: "form-control" %>

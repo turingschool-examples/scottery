@@ -1,0 +1,11 @@
+var addComment = function() {
+  $("#comment-items").prepend("<h5><%= @comment.author %></h5><p><%= @comment.body %></p>")
+}
+
+var clearInputs = function() {
+  $("#comment_author").val("")
+  $("#comment_body").val("")
+}
+
+addComment()
+claerInputs()

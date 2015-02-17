@@ -1,12 +1,16 @@
 class CommentsController < ApplicationController
   def create
-    comment = Comment.new(comment_params)
+    @comment = Comment.new(comment_params)
 
-    if comment.save
-      redirect_to post_path(id: comment.post.id), success: "Your comment was created."
-    else
-      flash.now[:danger] = "Your comment was not created."
-      render "posts/show", post: comment.post
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to post_path(id: @comment.post.id), success: "Your comment was created." }
+        format.json { render json: @comment }
+        format.js
+      else
+        flash.now[:danger] = "Your comment was not created."
+        render "posts/show", post: @comment.post
+      end
     end
   end
 
