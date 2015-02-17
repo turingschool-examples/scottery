@@ -1,0 +1,18 @@
+var changeText = function(text) {
+  $("#show-comments").attr("value", text)
+}
+
+var toggleButtonText = function() {
+  if ($("#show-comments").attr("value") === "Show Comments") {
+    changeText("Hide Comments")
+  } else {
+    changeText("Show Comments")
+  }
+}
+
+var toggleComments = function(){
+  $("#comments").toggleClass("hide")
+}
+
+toggleComments()
+toggleButtonText()

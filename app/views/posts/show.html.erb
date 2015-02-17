@@ -5,7 +5,7 @@
     <hr>
     <p><%= simple_format(@post.body) %></p>
     <hr>
-    <button class="btn btn-default btn-sm" id="show-comments">Show Comments</button>
+    <%= button_to "Show Comments", post_path(@post.id), method: :get, remote: true, class: "btn btn-sm btn-default", id: "show-comments" %>
     <div class="hide", id="comments">
       <% unless @post.comments.empty? %>
         <h4>Comments</h4>
@@ -30,23 +30,3 @@
   </div>
   <div class="col-sm-3"></div>
 </div>
-
-<script charset="utf-8">
-  $(document).ready(function(){
-    toggleComments("#show-comments", "#comments")
-
-    function toggleComments(button, target) {
-      $(button).on("click", function(){
-        var $showCommentsButton = $(this)
-
-        if ($showCommentsButton.text() === "Show Comments") {
-          $showCommentsButton.text("Hide Comments")
-        } else {
-          $showCommentsButton.text("Show Comments")
-        }
-
-        $(target).toggleClass("hide")
-      })
-    }
-  })
-</script>
