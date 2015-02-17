@@ -15,7 +15,7 @@ class Seed
     50.times do |i|
       post = Post.create!(
         title: Faker::Lorem.sentence(5),
-        body:  Faker::Lorem.paragraphs(5)
+        body:  Faker::Lorem.paragraphs(5).join("\r\n\r")
         )
 
       puts "Article #{i}: #{post.title} added!"
